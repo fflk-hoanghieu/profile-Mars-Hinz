@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08080b">
+<title>Vctech | Trọng Hiếu</title>
+
+<style>
+:root {
+  --bg: #08080b;
+  --panel: #111116;
+  --border: #343440;
+  --text: #f5f3fa;
+  --muted: #aaa7b8;
+  --purple: #a970ff;
+  --purple-light: #c8a8ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.7;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 14px 5%;
+  background: rgba(8,8,11,.95);
+  border-bottom: 1px solid #25252d;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.logo {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #85858f;
+  border-radius: 8px;
+  color: var(--purple);
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.brand-name span {
+  color: var(--purple-light);
+}
+
+nav {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  padding: 10px 15px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #17171f;
+  color: var(--text);
+  transition: .2s;
+}
+
+button:hover {
+  border-color: var(--purple);
+  transform: translateY(-1px);
+}
+
+.primary {
+  background: linear-gradient(135deg, #d0b2ff, #9b65f2);
+  color: #130b20;
+  border: none;
+  font-weight: bold;
+}
+
+main {
+  width: 92%;
+  max-width: 1120px;
+  margin: auto;
+}
+
+.page {
+  display: none;
+  padding: 40px 0 70px;
+}
+
+.page.active {
+  display: block;
+  animation: appear .25s ease;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 20px;
+}
+
+.panel {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  background: linear-gradient(145deg, #131319, #0d0d12);
+}
+
+.hero {
+  padding: 40px;
+}
+
+.eyebrow {
+  color: var(--purple-light);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+h1 {
+  margin: 15px 0;
+  font-size: clamp(38px, 6vw, 68px);
+  line-height: 1.1;
+  letter-spacing: -2px;
+}
+
+.accent {
+  color: var(--purple-light);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.profile {
+  padding: 24px;
+}
+
+.profile-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #694994;
+  border-radius: 14px;
+  background: #211735;
+  color: var(--purple-light);
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.profile-heading h2,
+.profile-heading p {
+  margin: 0;
+}
+
+.profile-heading p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.details {
+  margin: 0;
+}
+
+.detail {
+  display: grid;
+  grid-template-columns: 105px minmax(0,1fr);
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #282832;
+}
+
+.detail:last-child {
+  border-bottom: none;
+}
+
+.detail dt {
+  color: var(--muted);
+}
+
+.detail dd {
+  margin: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.about {
+  padding: 25px;
+  margin-top: 20px;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 15px;
+  margin: 40px 0 16px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.section-heading p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.code-card {
+  margin-top: 25px;
+  overflow: hidden;
+}
+
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 17px;
+  background: #191920;
+  border-bottom: 1px solid var(--border);
+}
+
+.filename {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dots span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #777;
+}
+
+.dots span:nth-child(1) {
+  background: #ff7777;
+}
+
+.dots span:nth-child(2) {
+  background: #f5c76e;
+}
+
+.dots span:nth-child(3) {
+  background: #78d79e;
+}
+
+pre {
+  margin: 0;
+  padding: 20px;
+  overflow-x: auto;
+  background: #0c0c11;
+  color: #d9c8ff;
+  font: 14px/1.8 monospace;
+}
+
+.code-note {
+  padding: 0 20px 17px;
+  background: #0c0c11;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 15px;
+}
+
+.info-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  min-height: 135px;
+  padding: 22px;
+}
+
+.info-icon {
+  flex: 0 0 47px;
+  width: 47px;
+  height: 47px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #503873;
+  border-radius: 13px;
+  background: #211735;
+  color: var(--purple-light);
+  font-size: 24px;
+}
+
+.info-card h3 {
+  margin: 0 0 5px;
+}
+
+.info-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.quote {
+  padding: 30px;
+  margin-top: 25px;
+  background: #15151c;
+}
+
+.quote h2 {
+  margin-top: 0;
+  font-size: clamp(22px, 3vw, 29px);
+  line-height: 1.5;
+}
+
+.quote p {
+  color: #c3c0ce;
+}
+
+.school {
+  margin-top: 20px;
+  color: var(--purple-light);
+  font-weight: bold;
+}
+
+.project-heading {
+  padding: 15px 0 25px;
+}
+
+.project-heading h1 {
+  font-size: clamp(35px, 5vw, 55px);
+}
+
+.project-empty {
+  min-height: 150px;
+  display: grid;
+  place-items: center;
+  margin-top: 22px;
+  padding: 25px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.project-empty strong {
+  display: block;
+  color: var(--purple-light);
+  font-size: 30px;
+}
+
+footer {
+  padding: 22px 15px;
+  border-top: 1px solid #25252d;
+  color: #777482;
+  text-align: center;
+  font-size: 13px;
+}
+
+@media (max-width: 780px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 27px;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  header {
+    padding: 12px 4%;
+  }
+
+  .brand {
+    font-size: 17px;
+  }
+
+  .logo {
+    width: 39px;
+    height: 39px;
+  }
+
+  nav button {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 420px) {
+  .detail {
+    grid-template-columns: 95px minmax(0,1fr);
+  }
+
+  .about,
+  .profile,
+  .quote {
+    padding: 18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo">V</div>
+    <div class="brand-name">V<span>ctech</span></div>
+  </div>
+
+  <nav>
+    <button type="button" onclick="showPage('home')">Trang chủ</button>
+    <button type="button" onclick="showPage('projects')">Dự án ↗</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ==================== TRANG CHỦ ==================== -->
+  <section class="page active" id="home">
+
+    <div class="hero-grid">
+
+      <section class="panel hero">
+        <div class="eyebrow">VCTECH · WELCOME</div>
+
+        <h1>
+          Xin chào,<br>
+          <span class="accent">đây là profile</span><br>
+          về Mars Hinz.
+        </h1>
+
+        <p class="muted">
+          Chào mừng đến với profile cá nhân của Mars Hinz,
+          nơi giới thiệu thông tin, niềm đam mê công nghệ
+          và hành trình phát triển của Trọng Hiếu.
+        </p>
+
+        <button class="primary" type="button" onclick="showPage('projects')">
+          Tìm hiểu dự án của Trọng Hiếu →
+        </button>
+      </section>
+
+      <!-- THÔNG TIN CÁ NHÂN ĐẦU TRANG -->
+      <aside class="panel profile">
+
+        <div class="profile-heading">
+          <div class="avatar">TH</div>
+
+          <div>
+            <h2>Trọng Hiếu</h2>
+            <p>Developer · Web Creator</p>
+          </div>
+        </div>
+
+        <dl class="details">
+
+          <div class="detail">
+            <dt>Tên</dt>
+            <dd>Trọng Hiếu</dd>
+          </div>
+
+          <div class="detail">
+            <dt>Biệt danh</dt>
+            <dd>Mars Hinz</dd>
+          </div>
+
+          <div class="detail">
+            <dt>From</dt>
+            <dd>Vietnam</dd>
+          </div>
+
+          <div class="detail">
+            <dt>Sinh năm</dt>
+            <dd>2012</dd>
+          </div>
+
+          <div class="detail">
+            <dt>Chuyên ngành</dt>
+            <dd>Lập trình website</dd>
+          </div>
+
+        </dl>
+      </aside>
+
+    </div>
+
+    <!-- GIỚI THIỆU -->
+    <section class="panel about">
+
+      <div class="section-heading" style="margin-top:0">
+        <h2>Giới thiệu bản thân</h2>
+        <p>Học hỏi · Sáng tạo · Phát triển</p>
+      </div>
+
+      <dl class="details">
+
+        <div class="detail">
+          <dt>Tên</dt>
+          <dd>Trọng Hiếu</dd>
+        </div>
+
+        <div class="detail">
+          <dt>Biệt danh</dt>
+          <dd>Mars Hinz</dd>
+        </div>
+
+        <div class="detail">
+          <dt>From</dt>
+          <dd>Vietnam</dd>
+        </div>
+
+        <div class="detail">
+          <dt>Sinh năm</dt>
+          <dd>2012</dd>
+        </div>
+
+        <div class="detail">
+          <dt>Chuyên ngành</dt>
+          <dd>
+            Lập trình website<br>
+            Thiết kế website<br>
+            Tạo server truy cập toàn cầu<br>
+            Tạo bot và ứng dụng cho các nền tảng<br>
+            Phát triển ứng dụng, lập trình<br>
+            Khởi chạy, tạo bot và website theo yêu cầu
+          </dd>
+        </div>
+
+      </dl>
+    </section>
+
+    <!-- BẢNG CODE TRANG CHỦ -->
+    <section class="panel code-card">
+
+      <div class="code-header">
+        <span class="filename">profile.js</span>
+
+        <div class="dots" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <pre><code>const profile = {
+  title: "Vctech",
+  name: "Trọng Hiếu",
+  nickname: "Mars Hinz",
+  location: "Vietnam",
+  interests: ["coding", "web design", "technology"],
+  skills: ["HTML", "CSS", "JavaScript"],
+  values: ["passion", "perseverance", "learning"],
+  goal: "Learn and build useful things",
+  neverGiveUp: true
+};
+
+function greeting(name) {
+  return `Xin chào, ${name}!`;
+}
+
+console.log(greeting(profile.nickname));
+console.log("Profile được tạo bởi " + profile.name);
+console.log("Welcome to Vctech.");</code></pre>
+
+      <div class="code-note">
+        Bảng code giới thiệu profile của Trọng Hiếu, biệt danh Mars Hinz và location: Vietnam.
+      </div>
+
+    </section>
+
+    <!-- BỐN BẢNG THÔNG TIN KHÔNG BẤM ĐƯỢC -->
+    <div class="section-heading">
+      <h2>Điều quan trọng với tôi</h2>
+      <p>Bốn lời nhắc trên hành trình</p>
+    </div>
+
+    <div class="cards-grid">
+
+      <article class="panel info-card">
+        <div class="info-icon" aria-hidden="true">⌖</div>
+        <div>
+          <h3>Địa điểm</h3>
+          <p>Việt Nam</p>
+        </div>
+      </article>
+
+      <article class="panel info-card">
+        <div class="info-icon" aria-hidden="true">⌘</div>
+        <div>
+          <h3>Developer</h3>
+          <p>Trọng Hiếu</p>
+        </div>
+      </article>
+
+      <article class="panel info-card">
+        <div class="info-icon" aria-hidden="true">🔥</div>
+        <div>
+          <h3>Khát vọng</h3>
+          <p>Không ngừng bước</p>
+        </div>
+      </article>
+
+      <article class="panel info-card">
+        <div class="info-icon" aria-hidden="true">◈</div>
+        <div>
+          <h3>Profile</h3>
+          <p>Không bỏ cuộc</p>
+        </div>
+      </article>
+
+    </div>
+
+  </section>
+
+  <!-- ==================== TRANG DỰ ÁN ==================== -->
+  <section class="page" id="projects">
+
+    <div class="project-heading">
+
+      <div class="eyebrow">VCTECH · PROJECT SPACE</div>
+
+      <h1>
+        Tìm hiểu dự án<br>
+        <span class="accent">của Trọng Hiếu</span>
+      </h1>
+
+      <p class="muted">
+        Không gian dành cho những ý tưởng và dự án công nghệ đang phát triển.
+      </p>
+
+      <button type="button" onclick="showPage('home')">
+        ← Quay về trang chủ
+      </button>
+
+    </div>
+
+    <!-- BẢNG CODE 20 DÒNG -->
+    <section class="panel code-card">
+
+      <div class="code-header">
+        <span class="filename">trong-hieu.js</span>
+
+        <div class="dots" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <pre><code>const creator = "Trọng Hiếu";
+const project = {
+  name: "Vctech",
+  author: creator,
+  location: "Vietnam",
+  field: "Web Development",
+  status: "In progress"
+};
+function keepLearning() {
+  return "Learn, build, improve.";
+}
+function createProject(title) {
+  return { title, creator, active: true };
+}
+const nextProject = createProject("My Next Project");
+console.log(keepLearning());
+console.log(nextProject);
+console.log("One step at a time.");
+console.log("Every problem has a solution.");
+console.log("Practice makes progress.");
+console.log("Build with purpose.");
+console.log("Never stop improving.");
+console.log("Created by Trọng Hiếu.");
+console.log("Vctech");</code></pre>
+
+      <div class="code-note">
+        Đoạn code JavaScript mẫu gồm 20 dòng nội dung, có tên Trọng Hiếu.
+      </div>
+
+    </section>
+
+    <!-- TIÊU ĐỀ VÀ THÔNG ĐIỆP -->
+    <section class="panel quote">
+
+      <h2>
+        Đừng bao giờ bỏ cuộc, vì không thứ gì không làm được,
+        chỉ là bạn chưa tìm ra cách giải quyết vấn đề đó.
+      </h2>
+
+      <p>
+        Đừng quên mục đích chính xác bạn chọn con đường này.
+        Công nghệ thông tin không phải lúc nào cũng dễ dàng,
+        nhưng nó đòi hỏi sự học hỏi, kiến thức, thực hành,
+        khả năng viết code và hiểu biết về mã hoá.
+      </p>
+
+      <p>
+        Đừng quên chính những điều chúng ta từng nghĩ đến và thực hiện.
+        Bởi vì đã có suy nghĩ, đã có quyết định thì hãy cố gắng biến
+        nó thành hành động. Lập trình không chỉ đòi hỏi kỹ năng;
+        nó còn cần người có đam mê, sự kiên trì và tinh thần học hỏi.
+      </p>
+
+      <div class="school">
+        Trường Công nghệ Thông tin Thủ Đức
+      </div>
+
+    </section>
+
+    <div class="panel project-empty">
+      <div>
+        <strong>✦</strong>
+        Khu vực dự án có thể được bổ sung sau.
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  © <span id="year"></span> Vctech · Made with care by Trọng Hiếu
+</footer>
+
+<script>
+  // Chuyển giữa hai trang ngay trong cùng một file HTML.
+  function showPage(pageId) {
+    document.querySelectorAll(".page").forEach(function(page) {
+      page.classList.toggle("active", page.id === pageId);
+    });
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
